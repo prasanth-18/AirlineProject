@@ -8,11 +8,13 @@ import com.example.demo.layer2.Seat;
 public interface SeatRepository {
 	
 	void addSeat(Seat sRef);   //C - add/create
-	Seat findSeat(String SeatNo);     //R - find/reading
+	Seat findSeat(int sno); //R - find/reading
 	Set<Seat> findAllSeats();     //R - find all/reading all
 	void modifySeat(Seat sRef); //U - modify/update
-	void removeSeat(String SeatNo); //D - remove/delete
+	void removeSeat(int sno); //D - remove/delete//block by flight admin
 	
 	Set<Seat> findSeatByUserid(int uid);
 	Set<Seat> findSeatByTicketno(int tno);
+	Set<Seat> findSeatBySeatNo(String seatno); 
+	void removeSeatByTicketNo(int tno);
 }

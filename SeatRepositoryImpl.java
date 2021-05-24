@@ -24,9 +24,9 @@ public class SeatRepositoryImpl implements SeatRepository {
 	}
 
 	@Transactional
-	public Seat findSeat(String SeatNo) {
+	public Seat findSeat(int sno) {
 		System.out.println("Finding Seat....");
-		return entityManager.find(Seat.class,SeatNo);
+		return entityManager.find(Seat.class,sno);
 		
 	}
 
@@ -45,9 +45,9 @@ public class SeatRepositoryImpl implements SeatRepository {
 
 	}
 
-	@Transactional
-	public void removeSeat(String SeatNo) {
-		Seat seat = entityManager.find(Seat.class,SeatNo);
+ @Transactional
+	public void removeSeat(int sno) {
+		Seat seat = entityManager.find(Seat.class,sno);
 		entityManager.remove(seat);
 
 	}
@@ -67,5 +67,21 @@ public class SeatRepositoryImpl implements SeatRepository {
 		sSet = new HashSet(query.getResultList());
 		return sSet;
 	}
+	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+		@Transactional
+		public Set<Seat> findSeatBySeatNo(String seatno) {
+			Set<Seat> sSet;
+			System.out.println("Finding Seat....");
+			Query query = entityManager.createNativeQuery("select * from seats where seatno =" +"'"+seatno+"'"+"",Seat.class);
+			sSet = new HashSet(query.getResultList());
+			return sSet;
+			
+	}
+	@Transactional
+	public void removeSeatByTicketNo(int tno) {
+	
+		entityManager.createNativeQuery("delete from seats where ticketno = "+tno,Seat.class);
 
+	}
 }
